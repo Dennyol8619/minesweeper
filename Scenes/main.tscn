@@ -1,0 +1,170 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4v55pvavn0ek"]
+
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_uog0h"]
+[ext_resource type="Texture2D" uid="uid://bfth2tppcxtvt" path="res://Assets/minesweeper_atlas.png" id="1_y5g1c"]
+[ext_resource type="Script" path="res://Scripts/camera_manager.gd" id="1_ymx5s"]
+[ext_resource type="Texture2D" uid="uid://d18l24885aoe0" path="res://Assets/TileEmpty.png" id="4_2e30n"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3pfd4"]
+texture = ExtResource("1_y5g1c")
+margins = Vector2i(4, 4)
+separation = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/next_alternative_id = 3
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_dn36p"]
+custom_data_layer_0/name = "has_mine"
+custom_data_layer_0/type = 1
+sources/0 = SubResource("TileSetAtlasSource_3pfd4")
+
+[node name="main" type="Node"]
+script = ExtResource("1_uog0h")
+
+[node name="TopLeft" type="Marker2D" parent="."]
+position = Vector2(-80, -80)
+gizmo_extents = 16.0
+
+[node name="BottomRight" type="Marker2D" parent="."]
+position = Vector2(80, 80)
+gizmo_extents = 16.0
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("corner1", "corner2")]
+zoom = Vector2(2, 2)
+script = ExtResource("1_ymx5s")
+corner1 = NodePath("../TopLeft")
+corner2 = NodePath("../BottomRight")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_dn36p")
+format = 2
+layer_0/tile_data = PackedInt32Array(-262149, 0, 2, -262148, 0, 0, -262147, 196608, 1, -262146, 196608, 1, -262145, 196608, 1, -327680, 196608, 1, -327679, 0, 0, -327678, 0, 0, -327677, 0, 0, 262148, 131072, 2, 196612, 131072, 2, 131076, 131072, 2, 65540, 65536, 0, 4, 0, 2, -65532, 0, 0, -131068, 196608, 1, -196604, 196608, 1, -262140, 196608, 1, -327676, 196608, 1, -196613, 0, 0, -131077, 196608, 1, -65541, 196608, 1, -5, 196608, 1, 65531, 131072, 2, 131067, 131072, 2, 196603, 131072, 2, 262139, 131072, 2, 327675, 131072, 2, 262147, 131072, 2, 262146, 131072, 2, 262145, 131072, 2, 262144, 131072, 2, 327679, 131072, 2, 327678, 131072, 2, 327677, 131072, 2, 327676, 131072, 2, 262140, 131072, 2, 196604, 131072, 2, 131068, 131072, 2, 65532, 131072, 2, -4, 65536, 0, -65540, 0, 0, -131076, 196608, 1, -196612, 0, 0, -196611, 196608, 1, -196610, 196608, 1, -196609, 196608, 1, -262144, 196608, 1, -262143, 0, 0, -262142, 0, 2, -262141, 0, 0, -196605, 0, 0, -131069, 196608, 1, -65533, 0, 0, 3, 0, 0, 65539, 65536, 0, 131075, 131072, 2, 131074, 0, 0, 65538, 0, 0, 2, 0, 0, -65534, 0, 0, -131070, 0, 0, -196606, 0, 0, -196607, 0, 0, -196608, 196608, 1, -131073, 196608, 1, -131074, 196608, 1, -131075, 196608, 1, -65539, 0, 0, -3, 0, 2, 65533, 131072, 2, 131069, 131072, 2, 131070, 131072, 2, 196606, 131072, 2, 196607, 131072, 2, 131072, 131072, 2, 65536, 65536, 0, 0, 131072, 0, -65536, 131072, 0, -131072, 65536, 0, -65537, 0, 0, -65538, 65536, 0, -2, 196608, 0, 65534, 131072, 2, 65535, 0, 2, -1, 0, 2, 131071, 65536, 0, 65537, 0, 0, 1, 0, 0, -65535, 0, 2, -131071, 0, 0, 131073, 131072, 2, 196610, 131072, 2, 196611, 131072, 2, 196609, 131072, 2, 196608, 131072, 2, 262143, 131072, 2, 262142, 131072, 2, 262141, 131072, 2, 196605, 131072, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.729412)
+scale = Vector2(8.99, 8.99)
+texture = ExtResource("4_2e30n")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Label" type="Label" parent="Node2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -44.0
+offset_right = 197.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+theme_override_font_sizes/font_size = 50
+text = "Board Size"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Size" type="LineEdit" parent="Node2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 11.0
+offset_top = -45.0
+offset_right = 203.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+theme_override_font_sizes/font_size = 50
+text = "8"
+alignment = 1
+max_length = 2
+
+[node name="Label2" type="Label" parent="Node2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.0
+offset_top = -19.0
+offset_right = 219.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+theme_override_font_sizes/font_size = 50
+text = "Mine Count"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Mines" type="LineEdit" parent="Node2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 11.0
+offset_top = -20.0
+offset_right = 203.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+theme_override_font_sizes/font_size = 50
+text = "10"
+alignment = 1
+max_length = 3
+
+[node name="Start" type="Button" parent="Node2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = 15.0
+offset_right = 219.0
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+theme_override_font_sizes/font_size = 50
+text = "Start"
+
+[node name="Exit" type="Button" parent="Node2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = 40.0
+offset_right = 219.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+theme_override_font_sizes/font_size = 50
+text = "Exit"
+
+[connection signal="text_submitted" from="Node2D/Size" to="." method="_on_size_text_submitted"]
+[connection signal="text_submitted" from="Node2D/Mines" to="." method="_on_mines_text_submitted"]
+[connection signal="pressed" from="Node2D/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Node2D/Exit" to="." method="_on_exit_pressed"]
